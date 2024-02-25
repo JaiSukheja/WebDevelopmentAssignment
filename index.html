@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px; 
+            padding: 40px;
+        }
+
+        .image {
+            width: 320px;
+            height: 320px;
+            object-fit: contain;
+            border-radius: 8px 8px 0 0;
+            background-color: #fff;
+            padding: 5px;
+            padding-bottom: 0;
+        }
+
+        h1 {
+            width: max-content;
+            text-align: center;
+            font-weight: 300;
+            border-bottom: 2px solid rgb(86, 231, 202);
+            align-self: center;
+            margin: 40px auto;
+            padding: 10px 0;
+            letter-spacing: 2px;
+            color: #777;
+        }
+
+        h2 {
+            margin: 10px 0 5px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 0 0 10px;
+        }
+
+        .item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            background-color: #ddd;
+            color: #777;
+            text-align: center;
+            align-items: center;
+        }
+        .item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgb(86, 231, 202);
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Doctor</h1>
+    <div class="container" id="image-container">
+    </div>
+
+    <script>
+        fetch('./data.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById("image-container");
+                data.forEach(item => {
+                    const div = document.createElement("div");
+                    div.classList.add("item");
+                    div.innerHTML = `
+                        <img class="image" src="${item.image}" alt="${item.name}">
+                        <h2>${item.name}</h2>
+                        <p>${item.designation}</p>
+                    `;
+                    container.appendChild(div);
+
+                    div.addEventListener("click", () => {
+                        alert(`Name: ${item.name}\nDesignation: ${item.designation}`);
+                    });
+                });
+            });
+    </script>
+</body>
+</html>
